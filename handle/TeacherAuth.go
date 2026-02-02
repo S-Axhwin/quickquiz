@@ -18,6 +18,7 @@ type Handler struct {
 
 // TODO: wanna to comp this
 func (h *Handler) CreateRoom(w http.ResponseWriter, r *http.Request) {
+	fmt.Print("Came inside create room")
 	ctx := r.Context()
 	var req CreateRoomRequest
 
@@ -119,7 +120,7 @@ func (h *Handler) LoginTeacher(w http.ResponseWriter, r *http.Request) {
 		Subject:   teacher.ID.String(),
 		ExpiresAt: jwt.NewNumericDate(time.Now().Add(15 * time.Minute)),
 		IssuedAt:  jwt.NewNumericDate(time.Now()),
-		Issuer:    "your-app",
+		Issuer:    "host.com",
 	}
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)

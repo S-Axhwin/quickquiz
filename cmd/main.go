@@ -22,7 +22,7 @@ func main() {
 	r := mux.NewRouter()
 	r.HandleFunc("/teacher", handler.RegisterTeacher).Methods("POST")
 	r.HandleFunc("/teacher/login", handler.LoginTeacher).Methods("POST")
-	r.HandleFunc("/teacher/quizzes", handler.CreateRoom).Methods("POST")
+	r.HandleFunc("/quizzes", handler.CreateRoom).Methods("POST")
 
 	log.Println("server running on :8080")
 	log.Fatal(http.ListenAndServe(":8080", r))
