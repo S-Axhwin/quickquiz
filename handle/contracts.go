@@ -15,3 +15,8 @@ type RegisterTeacherResponse struct {
 type CreateRoomRequest struct {
 	Title string `json:"title"`
 }
+
+type CreateRoomResponse struct {
+	Quiz_id uuid.UUID `json:"quiz_id"`
+	Title   string    `json:"title"`
+}

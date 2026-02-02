@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	db "github/prac-soc/db/store"
-	"log"
 	"net/http"
 	"os"
 	"time"
@@ -15,6 +14,39 @@ import (
 
 type Handler struct {
 	Queries *db.Queries
+}
+
+// TODO: wanna to comp this
+func (h *Handler) CreateRoom(w http.ResponseWriter, r *http.Request) {
+	ctx := r.Context()
+	var req CreateRoomRequest
+
+	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+		http.Error(w, "invalid input", http.StatusBadRequest)
+		return
+	}
+
+	if req.Title == "" {
+		http.Error(w, "required title", http.StatusBadRequest)
+		return
+	}
+
+	room, err := h.Queries.CreateQuiz(ctx, db.CreateQuizParams{
+		Title: req.Title,
+	})
+	if err != nil {
+		http.Error(w, "Error while creating room. may be already room exisits", http.StatusInternalServerError)
+		return
+	}
+
+	resp := CreateRoomResponse{
+		Quiz_id: room.ID,
+		Title:   room.Title,
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusCreated)
+	json.NewEncoder(w).Encode(resp)
 }
 
 func (h *Handler) RegisterTeacher(w http.ResponseWriter, r *http.Request) {
@@ -110,20 +142,4 @@ func (h *Handler) LoginTeacher(w http.ResponseWriter, r *http.Request) {
 
 	w.Write([]byte("Login successful"))
 
-}
-
-// TODO: wanna to comp this
-func (h *Handler) CreateRoom(w http.ResponseWriter, r *http.Request) {
-	ctx := r.Context()
-	var req CreateRoomRequest
-
-	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
-		http.Error(w, "invalid input", http.StatusBadRequest)
-		return
-	}
-
-	if req.Title == "" {
-		http.Error(w, "required title", http.StatusBadRequest)
-		return
-	}
 }
