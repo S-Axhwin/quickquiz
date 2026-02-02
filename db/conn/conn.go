@@ -14,8 +14,9 @@ var Pool *pgxpool.Pool
 func ConnectDB() {
 
 	dsn := os.Getenv("DATABASE_URL")
-	if dsn == "" {
-		log.Fatal("DATABASE_URL not set")
+	tokenKey := os.Getenv("JWT_SECRET")
+	if dsn == "" || tokenKey == "" {
+		log.Fatal("DATABASE_URL or JWT_SECRET not set")
 	}
 
 	config, err := pgxpool.ParseConfig(dsn)
