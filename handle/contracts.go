@@ -11,3 +11,7 @@ type RegisterTeacherResponse struct {
 	ID    uuid.UUID `json:"id"`
 	Email string    `json:"email"`
 }
+
+type CreateRoomRequest struct {
+	Title string `json:"title"`
+}

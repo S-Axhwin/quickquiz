@@ -41,6 +41,10 @@ Frontend stores token and sends it in `Authorization` header.
 ### POST /quizzes
 
 Create a new quiz.
+Authenticate teacher (via JWT)
+Create a quiz record
+Return quiz ID
+
 
 **Headers**
 
@@ -48,20 +52,20 @@ Create a new quiz.
 Authorization: Bearer <jwt>
 ```
 
-**Request**
+**request**
 
 ```json
 {
-  "title": "DBMS Quiz"
+  "title": "dbms quiz"
 }
 ```
 
-**Response**
+**response**
 
 ```json
 {
   "quiz_id": "uuid",
-  "title": "DBMS Quiz"
+  "title": "dbms quiz"
 }
 ```
 

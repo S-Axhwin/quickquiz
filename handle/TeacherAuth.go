@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	db "github/prac-soc/db/store"
+	"log"
 	"net/http"
 	"os"
 	"time"
@@ -109,4 +110,20 @@ func (h *Handler) LoginTeacher(w http.ResponseWriter, r *http.Request) {
 
 	w.Write([]byte("Login successful"))
 
+}
+
+// TODO: wanna to comp this
+func (h *Handler) CreateRoom(w http.ResponseWriter, r *http.Request) {
+	ctx := r.Context()
+	var req CreateRoomRequest
+
+	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+		http.Error(w, "invalid input", http.StatusBadRequest)
+		return
+	}
+
+	if req.Title == "" {
+		http.Error(w, "required title", http.StatusBadRequest)
+		return
+	}
 }
