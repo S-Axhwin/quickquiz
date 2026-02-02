@@ -42,7 +42,7 @@ func (h *Handler) RegisterTeacher(w http.ResponseWriter, r *http.Request) {
 		PasswordHash: string(hash),
 	})
 	if err != nil {
-		http.Error(w, "server side err", http.StatusInternalServerError)
+		http.Error(w, "User Alreay Exisits", http.StatusBadRequest)
 		return
 	}
 
