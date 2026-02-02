@@ -1,2 +1,2 @@
 # Quizzz... 
-
+This is an real time quiz application built for interactive session in classes
