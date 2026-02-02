@@ -1,11 +1,13 @@
 package api
 
-type RegisterTeacherRequest struct {
+import "github.com/google/uuid"
+
+type registerteacherrequest struct {
 	Email    string `json:"email"`
 	Password string `json:"password"`
 }
 
 type RegisterTeacherResponse struct {
-	ID    int32  `json:"id"`
-	Email string `json:"email"`
+	ID    uuid.UUID `json:"id"`
+	Email string    `json:"email"`
 }
